@@ -1,0 +1,71 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 input-box p-3 mt-5 w-25 mx-auto form-height">
+            <div >
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label class="d-block mandatory">Account Number</label>
+                        <input type="text" class="form-control d-block" [ngClass]="((form.get('accNo').invalid && form.get('accNo').touched) || (form.get('accNo').invalid && !isAccNoValid)) ? 'error-highlight' : ''" formControlName="accNo">
+                    </div>
+                    <div class="form-group">
+                        <label class="d-block mandatory">Type</label>
+                        <select formControlName="type" [ngClass]="((form.get('type').invalid && form.get('type').touched) || (form.get('type').invalid && !isTypeValid)) ? 'error-highlight' : ''" class="form-control d-block">
+                            <ng-container *ngFor="let accountType of accountTypes">
+                                <option value="{{accountType}}">{{accountType}}</option>    
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-block mandatory">Amount</label>
+                        <input type="text" class="form-control d-block" [ngClass]="((form.get('amount').invalid && form.get('amount').touched) || (form.get('amount').invalid && !isAmountValid)) ? 'error-highlight' : ''" formControlName="amount">
+                    </div>
+                    <div class="form-group">
+                        <label class="d-block mandatory">Customer</label>
+                        <select formControlName="customer" [ngClass]="((form.get('customer').invalid && form.get('customer').touched) || (form.get('customer').invalid && !isCustomerValid)) ? 'error-highlight' : ''" class="form-control d-block">
+                            <ng-container *ngFor="let customer of customers">
+                                <option value="{{customer.id}}" >{{customer.name}}</option>    
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-block mandatory">Currency</label>
+                        <select formControlName="currency" [ngClass]="((form.get('currency').invalid && form.get('currency').touched) || (form.get('currency').invalid && !isCurrencyValid)) ? 'error-highlight' : ''" class="form-control d-block">    
+                            <ng-container *ngFor="let currencyCode of currencyCodes">
+                                <option value="{{currencyCode}}">{{currencyCode}}</option>    
+                            </ng-container>
+                        </select>
+                    </div>
+                    <button class="btn btn-success">{{isUpdate ? 'Update account' : 'Add account'}}</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 mt-5 pl-5">
+            <h2>Account's list</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">Acc No</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Currency</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let account of accounts; index as i">
+                        <td>{{account.accNo}}</td>
+                        <td>{{account.type}}</td>
+                        <td>{{account.amount}}</td>
+                        <td>{{account.customerName}}</td>
+                        <td>{{account.currency}}</td>
+                        <td> <i class="fas fa-edit text-primary cursor-pointer" (click)="onEditPopulateToForm(i)"></i></td>
+                        <td><i class="fas fa-trash text-danger cursor-pointer"  (click)="onDeleteAccount(i)"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

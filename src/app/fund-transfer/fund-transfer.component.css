@@ -1,0 +1,37 @@
+.input-box {
+    -webkit-box-shadow: -4px -6px 28px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -4px -6px 28px -4px rgba(0,0,0,0.75);
+    box-shadow: -4px -6px 28px -4px rgba(0,0,0,0.75);
+}
+
+.error-highlight {
+    border: 2px solid red;
+    box-shadow: 0px 0px 10px 0px red;
+}
+
+.notification-panel {
+    text-align: center;
+}
+
+.transfer-failure {
+    border: 3px solid red;
+    box-shadow: inset 0px 0px 15px 0px red;
+}
+
+.transfer-success {
+    border: 3px solid green;
+    box-shadow: inset 0px 0px 15px 0px green;
+}
+
+.text-failure {
+    color: red;
+}
+
+.text-success {
+    color: green;
+}
+
+.mandatory:after {
+    color: red;
+    content: "*";
+}

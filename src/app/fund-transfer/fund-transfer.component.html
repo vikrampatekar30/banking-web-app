@@ -1,0 +1,46 @@
+
+<div class="container">    
+    <div class="row">
+    <div class="col-md-6 input-box p-3 mt-5 w-25 mx-auto form-height col">
+        <div >
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label class="d-block mandatory">Customer</label>
+                    <select (change)="onCustomerChange($event)" formControlName="customer" [ngClass]="((form.get('customer').invalid && form.get('customer').touched) || (form.get('customer').invalid && !isCustomerValid)) ? 'error-highlight' : ''" class="form-control d-block">
+                        <ng-container *ngFor="let customer of customers">
+                            <option value="{{customer.id}}" >{{customer.name}}</option>    
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="d-block mandatory">From Account</label>
+                    <select (change)="onFromAccountChange($event)" formControlName="fromAccount" [ngClass]="((form.get('fromAccount').invalid && form.get('fromAccount').touched) || (form.get('fromAccount').invalid && !isFromAccountValid)) ? 'error-highlight' : ''" class="form-control d-block">    
+                        <ng-container *ngFor="let account of accounts">
+                            <option value="{{account.id}}">{{account.accNo}}</option>    
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="d-block mandatory">To Account</label>
+                    <select formControlName="toAccount" [ngClass]="((form.get('toAccount').invalid && form.get('toAccount').touched) || (form.get('toAccount').invalid && !isToAccountValid)) ? 'error-highlight' : ''" class="form-control d-block">    
+                        <ng-container *ngFor="let account of accounts">
+                            <ng-container *ngIf="selectedFromAccountId != account.id">
+                                <option value="{{account.id}}">{{account.accNo}}</option>    
+                            </ng-container>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="d-block mandatory">Amount</label>
+                    <input type="text" class="form-control d-block" [ngClass]="((form.get('amount').invalid && form.get('amount').touched) || (form.get('amount').invalid && !isAmountValid)) ? 'error-highlight' : ''" formControlName="amount">
+                </div>
+                <button class="btn btn-success">Fund transfer</button>
+            </form>
+        </div>
+    </div>
+    <div class="w-100"></div>
+    <div *ngIf="isResultFetched" [ngClass]="isError ? 'transfer-failure' : 'transfer-success'" class="col-md-6 p-3 mb-5 w-25 mx-auto fixed-bottom col notification-panel">
+        <h5 [ngClass]="isError ? 'text-failure' : 'text-success'">{{resultMessage}}</h5>
+    </div>
+</div>
+</div>
